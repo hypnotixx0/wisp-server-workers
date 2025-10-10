@@ -1,15 +1,12 @@
 name = "wisp-server-workers"
 main = "build/worker/shim.mjs"
-compatibility_date = "2025-10-01"
+compatibility_date = "2025-10-10"
 
-# Build settings (Rust → Wasm via worker-build)
-[build]
-command = "cargo install -q worker-build && worker-build --release"
+workers_dev = true   # set to false if you’re only using a custom domain
+
+# Removed the [build] section — no cargo needed in Cloudflare’s build environment
 
 [env.dev]
-build = { command = "cargo install -q worker-build && worker-build --dev" }
-
-# Optional: define routes if you want to use a custom domain on Cloudflare
-# routes = [
-#   { pattern = "wisp.yourdomain.com/*", zone_name = "yourdomain.com" }
-# ]
+# Optional: keep this if you want to build locally for dev testing.
+# If you don't need it, you can delete this whole block.
+# build = { command = "cargo install -q worker-build && worker-build --dev" }
