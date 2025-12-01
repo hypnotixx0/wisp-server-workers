@@ -2,11 +2,14 @@ name = "wisp-server-workers"
 main = "build/worker/shim.mjs"
 compatibility_date = "2025-10-10"
 
-workers_dev = true   # set to false if you’re only using a custom domain
+workers_dev = true
 
-# Removed the [build] section — no cargo needed in Cloudflare’s build environment
+# Add build configuration for Rust
+[build]
+command = "worker-build --release"
+
+[vars]
+allowed_host_regex = ".*"  # Allow all hosts for your proxy
 
 [env.dev]
-# Optional: keep this if you want to build locally for dev testing.
-# If you don't need it, you can delete this whole block.
-# build = { command = "cargo install -q worker-build && worker-build --dev" }
+# Optional dev settings
